@@ -1,6 +1,6 @@
 <?php
-require_once 'StorageUnit.php'; // Ensure StorageUnit class is included
-require_once 'Product.php'; // Ensure Product class is included
+require_once 'StorageUnit.php'; 
+require_once 'Product.php';
 
 class Users
 {
