@@ -1,14 +1,14 @@
 <?php
-require_once 'vendor/autoload.php'; // Include Composer's autoload file
-require_once 'Users.php'; // Include Users class
-require_once 'StorageUnit.php'; // Include StorageUnit class
-require_once 'Product.php'; // Include Product class
+require_once 'vendor/autoload.php'; 
+require_once 'Users.php'; 
+require_once 'StorageUnit.php'; 
+require_once 'Product.php';
 
 session_start();
 
-echo "Welcome to the Warehouse Management System!\n";
+echo "Welcome to your Warehouse!\n";
 
-$user = new Users('dummy', 0); // Dummy instance to access the method
+$user = new Users('new', 0);
 
 function isLoggedIn() {
     return isset($_SESSION['username']);
@@ -34,8 +34,7 @@ while (true) {
         echo "3. Exit\n";
     }
 
-    echo "Enter your choice: ";
-    $choice = trim(fgets(STDIN));
+    $choice = readline("Enter your choice: ");
 
     if (isLoggedIn()) {
         switch ($choice) {
@@ -46,43 +45,32 @@ while (true) {
                 $user->displayStorageUnits();
                 break;
             case '3':
-                echo "Enter storage unit name: ";
-                $unitName = trim(fgets(STDIN));
-                echo "Enter number of products: ";
-                $productCount = (int)trim(fgets(STDIN));
+                $unitName = readline("Enter storage unit name: ");
+                $productCount = (int)readline("Enter number of products: ");
                 $user->createStorageUnit($unitName, $productCount);
                 break;
             case '4':
-                echo "Enter access code: ";
-                $accessCode = (int)trim(fgets(STDIN));
+                $accessCode = (int)readline("Enter access code: ");
                 $user->accessStorageUnit($accessCode);
                 break;
             case '5':
-                echo "Enter product name: ";
-                $productName = trim(fgets(STDIN));
-                echo "Enter quantity: ";
-                $quantity = (int)trim(fgets(STDIN));
-                echo "Enter storage unit name: ";
-                $storageUnitName = trim(fgets(STDIN));
+                $productName = readline("Enter product name: ");
+                $quantity = (int)readline("Enter quantity: ");
+                $storageUnitName = readline("Enter storage unit name: ");
                 $user->createProduct($productName, $quantity, $storageUnitName);
                 break;
             case '6':
-                echo "Enter storage unit name: ";
-                $storageUnitName = trim(fgets(STDIN));
+                $storageUnitName = readline("Enter storage unit name: ");
                 $user->displayProductsInStorageUnit($storageUnitName);
                 break;
             case '7':
-                echo "Enter product ID to edit: ";
-                $productId = (int)trim(fgets(STDIN));
-                echo "Enter new product name: ";
-                $newProductName = trim(fgets(STDIN));
-                echo "Enter new quantity: ";
-                $newQuantity = (int)trim(fgets(STDIN));
+                $productId = (int)readline("Enter product ID to edit: ");
+                $newProductName = readline("Enter new product name: ");
+                $newQuantity = (int)readline("Enter new quantity: ");
                 Product::editProduct($productId, $newProductName, $newQuantity);
                 break;
             case '8':
-                echo "Enter product ID to delete: ";
-                $productId = (int)trim(fgets(STDIN));
+                $productId = (int)readline("Enter product ID to delete: ");
                 Product::deleteProduct($productId);
                 break;
             case '9':
@@ -108,17 +96,13 @@ while (true) {
     } else {
         switch ($choice) {
             case '1':
-                echo "Enter username: ";
-                $username = trim(fgets(STDIN));
-                echo "Enter password: ";
-                $password = trim(fgets(STDIN));
+                $username = readline("Enter username: ");
+                $password = readline("Enter password: ");
                 $user->addUser($username, $password);
                 break;
             case '2':
-                echo "Enter username: ";
-                $username = trim(fgets(STDIN));
-                echo "Enter password: ";
-                $password = trim(fgets(STDIN));
+                $username = readline("Enter username: ");
+                $password = readline("Enter password: ");
                 $user->userLogin($username, $password);
                 break;
             case '3':
